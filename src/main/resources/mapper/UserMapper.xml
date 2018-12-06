@@ -149,4 +149,17 @@
       collectnum = #{collectnum,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="findByUsername" resultType="User">
+      SELECT id,username,password FROM user
+      where
+      username=#{username}
+    </select>
+  <select id="findUserById" resultType="User">
+        SELECT id,username,password FROM user
+      where
+      id=#{id}
+   </select>
+
+
 </mapper>
