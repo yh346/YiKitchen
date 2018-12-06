@@ -1,14 +1,152 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qfedu.yikitchen.mapper.UserMapper">
-    <select id="findByUsername" resultType="User">
-      SELECT * FROM user
-      where
-      username=#{username}
-    </select>
-    <select id="findUserById" resultType="User">
-        SELECT * FROM user
-      where
-      id=#{id}
-    </select>
+<mapper namespace="com.qfedu.yikitchen.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.qfedu.yikitchen.pojo.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="headid" property="headid" jdbcType="INTEGER" />
+    <result column="collectnum" property="collectnum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, username, password, sex, address, email, createtime, type, headid, collectnum
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.yikitchen.pojo.User" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user (username, password, sex, 
+      address, email, createtime, 
+      type, headid, collectnum
+      )
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{address,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{type,jdbcType=INTEGER}, #{headid,jdbcType=INTEGER}, #{collectnum,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.yikitchen.pojo.User" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="headid != null" >
+        headid,
+      </if>
+      <if test="collectnum != null" >
+        collectnum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="headid != null" >
+        #{headid,jdbcType=INTEGER},
+      </if>
+      <if test="collectnum != null" >
+        #{collectnum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.yikitchen.pojo.User" >
+    update user
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="headid != null" >
+        headid = #{headid,jdbcType=INTEGER},
+      </if>
+      <if test="collectnum != null" >
+        collectnum = #{collectnum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.yikitchen.pojo.User" >
+    update user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER},
+      headid = #{headid,jdbcType=INTEGER},
+      collectnum = #{collectnum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>

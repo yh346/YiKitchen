@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qfedu.yikitchen.mapper.StoryMapper" >
+  <resultMap id="BaseResultMap" type="com.qfedu.yikitchen.pojo.Story" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="collectnum" property="collectnum" jdbcType="INTEGER" />
+    <result column="playernum" property="playernum" jdbcType="INTEGER" />
+    <result column="likenum" property="likenum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, uid, createtime, content, collectnum, playernum, likenum
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from story
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from story
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.yikitchen.pojo.Story" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into story (uid, createtime, content, 
+      collectnum, playernum, likenum
+      )
+    values (#{uid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{content,jdbcType=VARCHAR}, 
+      #{collectnum,jdbcType=INTEGER}, #{playernum,jdbcType=INTEGER}, #{likenum,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.yikitchen.pojo.Story" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into story
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="collectnum != null" >
+        collectnum,
+      </if>
+      <if test="playernum != null" >
+        playernum,
+      </if>
+      <if test="likenum != null" >
+        likenum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="collectnum != null" >
+        #{collectnum,jdbcType=INTEGER},
+      </if>
+      <if test="playernum != null" >
+        #{playernum,jdbcType=INTEGER},
+      </if>
+      <if test="likenum != null" >
+        #{likenum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.yikitchen.pojo.Story" >
+    update story
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="collectnum != null" >
+        collectnum = #{collectnum,jdbcType=INTEGER},
+      </if>
+      <if test="playernum != null" >
+        playernum = #{playernum,jdbcType=INTEGER},
+      </if>
+      <if test="likenum != null" >
+        likenum = #{likenum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.yikitchen.pojo.Story" >
+    update story
+    set uid = #{uid,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=VARCHAR},
+      collectnum = #{collectnum,jdbcType=INTEGER},
+      playernum = #{playernum,jdbcType=INTEGER},
+      likenum = #{likenum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

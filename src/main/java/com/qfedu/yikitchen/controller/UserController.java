@@ -1,14 +1,14 @@
 package com.qfedu.yikitchen.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.qfedu.yikitchen.annotation.UserLoginToken;
 import com.qfedu.yikitchen.pojo.User;
 import com.qfedu.yikitchen.service.TokenService;
 import com.qfedu.yikitchen.service.UserService;
-import com.qfedu.yikitchen.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class UserController {
@@ -19,8 +19,11 @@ public class UserController {
     @Autowired
     TokenService tokenService;
 
-    @PostMapping ("/login")
-    public Object login(User user) {
+    @RequestMapping ("/login")
+    public Object login(User user, HttpServletResponse response) {
+
+       // response.addHeader("Access-Control-Allow-Origin", "*");
+
 
         System.out.println(user.getUsername());
         JSONObject jsonObject = new JSONObject();
@@ -46,7 +49,7 @@ public class UserController {
 
 
     @UserLoginToken
-    @GetMapping("/getMessage")
+    @RequestMapping("/getMessage")
     public String getMessage(){
         return "你已通过验证";
     }

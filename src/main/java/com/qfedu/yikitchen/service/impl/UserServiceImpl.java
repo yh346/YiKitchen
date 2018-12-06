@@ -1,7 +1,5 @@
 package com.qfedu.yikitchen.service.impl;
 
-import com.qfedu.yikitchen.mapper.UserMapper;
-import com.qfedu.yikitchen.pojo.User;
 import com.qfedu.yikitchen.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
