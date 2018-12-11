@@ -16,3 +16,5 @@ spring:
 mybatis:
   type-aliases-package: com.qfedu.yikitchen.pojo
   mapper-locations: classpath:mapper/*.xml
+
+

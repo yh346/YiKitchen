@@ -40,6 +40,7 @@ public class UserController {
                 String token = tokenService.getToken(userForBase);
                 jsonObject.put("token", token);
                 jsonObject.put("user", userForBase);
+
                 return jsonObject;
             }
         }
