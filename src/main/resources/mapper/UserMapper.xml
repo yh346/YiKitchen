@@ -10,11 +10,11 @@
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="type" property="type" jdbcType="INTEGER" />
-    <result column="headid" property="headid" jdbcType="INTEGER" />
+    <result column="headimg" property="headimg" jdbcType="INTEGER" />
     <result column="collectnum" property="collectnum" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, username, password, sex, address, email, createtime, type, headid, collectnum
+    id, username, password, sex, address, email, createtime, type, headimg, collectnum
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -32,11 +32,11 @@
     </selectKey>
     insert into user (username, password, sex, 
       address, email, createtime, 
-      type, headid, collectnum
+      type, headimg, collectnum
       )
     values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
       #{address,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
-      #{type,jdbcType=INTEGER}, #{headid,jdbcType=INTEGER}, #{collectnum,jdbcType=INTEGER}
+      #{type,jdbcType=INTEGER}, #{headimg,jdbcType=VARCHAR}, #{collectnum,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.qfedu.yikitchen.pojo.User" >
@@ -66,8 +66,8 @@
       <if test="type != null" >
         type,
       </if>
-      <if test="headid != null" >
-        headid,
+      <if test="headimg != null" >
+        headimg,
       </if>
       <if test="collectnum != null" >
         collectnum,
@@ -96,7 +96,7 @@
         #{type,jdbcType=INTEGER},
       </if>
       <if test="headid != null" >
-        #{headid,jdbcType=INTEGER},
+        #{headimg,jdbcType=VARCHAR},
       </if>
       <if test="collectnum != null" >
         #{collectnum,jdbcType=INTEGER},
@@ -127,8 +127,8 @@
       <if test="type != null" >
         type = #{type,jdbcType=INTEGER},
       </if>
-      <if test="headid != null" >
-        headid = #{headid,jdbcType=INTEGER},
+      <if test="headimg != null" >
+        headid = #{headimg,jdbcType=VARCHAR},
       </if>
       <if test="collectnum != null" >
         collectnum = #{collectnum,jdbcType=INTEGER},
@@ -145,7 +145,7 @@
       email = #{email,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP},
       type = #{type,jdbcType=INTEGER},
-      headid = #{headid,jdbcType=INTEGER},
+      headimg = #{headimg,jdbcType=VARCHAR},
       collectnum = #{collectnum,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

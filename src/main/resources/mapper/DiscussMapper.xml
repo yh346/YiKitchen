@@ -4,12 +4,45 @@
   <resultMap id="BaseResultMap" type="com.qfedu.yikitchen.pojo.Discuss" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="storyid" property="storyid" jdbcType="INTEGER" />
-    <result column="otheruserid" property="otheruserid" jdbcType="INTEGER" />
+    <result column="otherid" property="otherid" jdbcType="INTEGER" />
     <result column="talk" property="talk" jdbcType="VARCHAR" />
     <result column="talktime" property="talktime" jdbcType="TIMESTAMP" />
+
+   <!-- <collection property="story" ofType="com.qfedu.yikitchen.pojo.Story">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="looknum" property="looknum" jdbcType="INTEGER" />
+    <result column="playernum" property="playernum" jdbcType="INTEGER" />
+    <result column="likenum" property="likenum" jdbcType="INTEGER" />
+    </collection>-->
+  </resultMap>
+  <resultMap id="Discussaaa" type="com.qfedu.yikitchen.pojo.Discuss" extends="BaseResultMap">
+  <association property="user" javaType="com.qfedu.yikitchen.pojo.User">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="headimg" property="headimg" jdbcType="INTEGER" />
+    <result column="collectnum" property="collectnum" jdbcType="INTEGER" />
+  </association>
+    <!--<collection property="story" ofType="com.qfedu.yikitchen.pojo.Story">
+      <id column="id" property="id" jdbcType="INTEGER" />
+      <result column="uid" property="uid" jdbcType="INTEGER" />
+      <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+      <result column="content" property="content" jdbcType="VARCHAR" />
+      <result column="looknum" property="looknum" jdbcType="INTEGER" />
+      <result column="playernum" property="playernum" jdbcType="INTEGER" />
+      <result column="likenum" property="likenum" jdbcType="INTEGER" />
+    </collection>-->
   </resultMap>
   <sql id="Base_Column_List" >
-    id, storyid, otheruserid, talk, talktime
+    id, storyid, otherid, talk, talktime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -25,9 +58,9 @@
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into discuss (storyid, otheruserid, talk, 
+    insert into discuss (storyid, otherid, talk,
       talktime)
-    values (#{storyid,jdbcType=INTEGER}, #{otheruserid,jdbcType=INTEGER}, #{talk,jdbcType=VARCHAR}, 
+    values (#{storyid,jdbcType=INTEGER}, #{otherid,jdbcType=INTEGER}, #{talk,jdbcType=VARCHAR},
       #{talktime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.qfedu.yikitchen.pojo.Discuss" >
@@ -39,8 +72,8 @@
       <if test="storyid != null" >
         storyid,
       </if>
-      <if test="otheruserid != null" >
-        otheruserid,
+      <if test="otherid != null" >
+        otherid,
       </if>
       <if test="talk != null" >
         talk,
@@ -53,8 +86,8 @@
       <if test="storyid != null" >
         #{storyid,jdbcType=INTEGER},
       </if>
-      <if test="otheruserid != null" >
-        #{otheruserid,jdbcType=INTEGER},
+      <if test="otherid != null" >
+        #{otherid,jdbcType=INTEGER},
       </if>
       <if test="talk != null" >
         #{talk,jdbcType=VARCHAR},
@@ -70,8 +103,8 @@
       <if test="storyid != null" >
         storyid = #{storyid,jdbcType=INTEGER},
       </if>
-      <if test="otheruserid != null" >
-        otheruserid = #{otheruserid,jdbcType=INTEGER},
+      <if test="otherid != null" >
+        otherid = #{otherid,jdbcType=INTEGER},
       </if>
       <if test="talk != null" >
         talk = #{talk,jdbcType=VARCHAR},
@@ -85,9 +118,17 @@
   <update id="updateByPrimaryKey" parameterType="com.qfedu.yikitchen.pojo.Discuss" >
     update discuss
     set storyid = #{storyid,jdbcType=INTEGER},
-      otheruserid = #{otheruserid,jdbcType=INTEGER},
+      otherid = #{otherid,jdbcType=INTEGER},
       talk = #{talk,jdbcType=VARCHAR},
       talktime = #{talktime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectDiscuss" resultMap="Discussaaa">
+
+  select
+d.*,u.headimg,u.username
+FROM discuss d LEFT JOIN `user` u on u.id=d.otherid WHERE storyid=#{storyid}
+
+  </select>
+
 </mapper>

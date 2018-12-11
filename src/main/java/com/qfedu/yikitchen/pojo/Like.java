@@ -4,8 +4,27 @@ public class Like {
     private Integer id;
 
     private Integer userid;
+    private Integer otherid;
+
+    private Integer storyid;
 
     private Integer likenum;
+
+    public Integer getOtherid() {
+        return otherid;
+    }
+
+    public void setOtherid(Integer otherid) {
+        this.otherid = otherid;
+    }
+
+    public Integer getStoryid() {
+        return storyid;
+    }
+
+    public void setStoryid(Integer storyid) {
+        this.storyid = storyid;
+    }
 
     public Integer getId() {
         return id;

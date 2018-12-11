@@ -2,6 +2,8 @@ package com.qfedu.yikitchen.mapper;
 
 import com.qfedu.yikitchen.pojo.Discuss;
 
+import java.util.List;
+
 public interface DiscussMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface DiscussMapper {
     int updateByPrimaryKeySelective(Discuss record);
 
     int updateByPrimaryKey(Discuss record);
+
+    List<Discuss> selectDiscuss(Integer id);
 }

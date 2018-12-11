@@ -66,4 +66,11 @@
       otherid = #{otherid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="FocusOrNo" resultType="java.lang.Integer">
+    select  count(*) from focus where userid=#{userid} and  otherid=#{otherid};
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from focus
+    where userid = #{userid,jdbcType=INTEGER} and otherid=#{otherid}
+  </delete>
 </mapper>

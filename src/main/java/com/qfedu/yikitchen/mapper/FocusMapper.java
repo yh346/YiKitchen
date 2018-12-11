@@ -14,4 +14,8 @@ public interface FocusMapper {
     int updateByPrimaryKeySelective(Focus record);
 
     int updateByPrimaryKey(Focus record);
+
+    int FocusOrNo(Focus focus);
+
+    int delete(Focus focus);
 }

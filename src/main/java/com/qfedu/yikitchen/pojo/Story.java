@@ -1,6 +1,7 @@
 package com.qfedu.yikitchen.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 public class Story {
     private Integer id;
@@ -11,11 +12,39 @@ public class Story {
 
     private String content;
 
-    private Integer collectnum;
+    private Integer looknum;
 
     private Integer playernum;
 
     private Integer likenum;
+
+    private User user;
+
+    private List<StoryImg> storyImgs;
+
+    public Integer getLooknum() {
+        return looknum;
+    }
+
+    public void setLooknum(Integer looknum) {
+        this.looknum = looknum;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<StoryImg> getStoryImgs() {
+        return storyImgs;
+    }
+
+    public void setStoryImgs(List<StoryImg> storyImgs) {
+        this.storyImgs = storyImgs;
+    }
 
     public Integer getId() {
         return id;
@@ -49,13 +78,7 @@ public class Story {
         this.content = content == null ? null : content.trim();
     }
 
-    public Integer getCollectnum() {
-        return collectnum;
-    }
 
-    public void setCollectnum(Integer collectnum) {
-        this.collectnum = collectnum;
-    }
 
     public Integer getPlayernum() {
         return playernum;

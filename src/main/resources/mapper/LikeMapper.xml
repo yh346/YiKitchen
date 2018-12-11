@@ -4,10 +4,12 @@
   <resultMap id="BaseResultMap" type="com.qfedu.yikitchen.pojo.Like" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="otherid" property="otherid" jdbcType="INTEGER" />
     <result column="likenum" property="likenum" jdbcType="INTEGER" />
+    <result column="storyid" property="storyid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, userid, likenum
+    id, userid,otherid, likenum,storyid
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -23,8 +25,8 @@
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into like (userid, likenum)
-    values (#{userid,jdbcType=INTEGER}, #{likenum,jdbcType=INTEGER})
+    insert into like (userid,otherid, likenum,storyid)
+    values (#{userid,jdbcType=INTEGER},#{otherid,jdbcType=INTEGER}, #{likenum,jdbcType=INTEGER},#{storyid,jdbcType=INTEGER},)
   </insert>
   <insert id="insertSelective" parameterType="com.qfedu.yikitchen.pojo.Like" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -35,16 +37,28 @@
       <if test="userid != null" >
         userid,
       </if>
+      <if test="otherid != null" >
+        otherid,
+      </if>
       <if test="likenum != null" >
         likenum,
+      </if>
+      <if test="storyid != null" >
+        storyid,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userid != null" >
         #{userid,jdbcType=INTEGER},
       </if>
+      <if test="otherid != null" >
+        otherid,
+      </if>
       <if test="likenum != null" >
         #{likenum,jdbcType=INTEGER},
+      </if>
+      <if test="storyid != null" >
+        storyid,
       </if>
     </trim>
   </insert>
@@ -54,8 +68,14 @@
       <if test="userid != null" >
         userid = #{userid,jdbcType=INTEGER},
       </if>
+      <if test="otherid != null" >
+        otherid,
+      </if>
       <if test="likenum != null" >
         likenum = #{likenum,jdbcType=INTEGER},
+      </if>
+      <if test="storyid != null" >
+        storyid,
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -63,7 +83,19 @@
   <update id="updateByPrimaryKey" parameterType="com.qfedu.yikitchen.pojo.Like" >
     update like
     set userid = #{userid,jdbcType=INTEGER},
-      likenum = #{likenum,jdbcType=INTEGER}
+     otherid = #{otherid,jdbcType=INTEGER},
+      likenum = #{likenum,jdbcType=INTEGER},
+       storyid = #{storyid,jdbcType=INTEGER},
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="likeOrNo" resultType="java.lang.Integer">
+    select  count(*) from `like` where storyid=#{storyid} and  otherid=#{otherid};
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from `like`
+    where storyid = #{storyid,jdbcType=INTEGER} and otherid=#{otherid}
+  </delete>
+  <select id="LikeNum" resultType="java.lang.Integer">
+    select count(*) from `like` where storyid=#{storyid};
+  </select>
 </mapper>

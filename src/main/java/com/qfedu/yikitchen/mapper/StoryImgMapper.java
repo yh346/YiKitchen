@@ -2,6 +2,8 @@ package com.qfedu.yikitchen.mapper;
 
 import com.qfedu.yikitchen.pojo.StoryImg;
 
+import java.util.List;
+
 public interface StoryImgMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface StoryImgMapper {
     int updateByPrimaryKeySelective(StoryImg record);
 
     int updateByPrimaryKey(StoryImg record);
+
+    int inserts(List<StoryImg> storyImgs);
 }

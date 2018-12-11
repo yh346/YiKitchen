@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qfedu.mapper.LookMapper" >
+  <resultMap id="BaseResultMap" type="com.qfedu.yikitchen.pojo.Look" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="storyid" property="storyid" jdbcType="INTEGER" />
+    <result column="otherid" property="otherid" jdbcType="INTEGER" />
+    <result column="looknum" property="looknum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, storyid, otherid, looknum
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from look
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from look
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.yikitchen.pojo.Look" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into look (storyid, otherid, looknum
+      )
+    values (#{storyid,jdbcType=INTEGER}, #{otherid,jdbcType=INTEGER}, #{looknum,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.yikitchen.pojo.Look" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into look
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storyid != null" >
+        storyid,
+      </if>
+      <if test="otherid != null" >
+        otherid,
+      </if>
+      <if test="looknum != null" >
+        looknum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storyid != null" >
+        #{storyid,jdbcType=INTEGER},
+      </if>
+      <if test="otherid != null" >
+        #{otherid,jdbcType=INTEGER},
+      </if>
+      <if test="looknum != null" >
+        #{looknum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.yikitchen.pojo.Look" >
+    update look
+    <set >
+      <if test="storyid != null" >
+        storyid = #{storyid,jdbcType=INTEGER},
+      </if>
+      <if test="otherid != null" >
+        otherid = #{otherid,jdbcType=INTEGER},
+      </if>
+      <if test="looknum != null" >
+        looknum = #{looknum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.yikitchen.pojo.Look" >
+    update look
+    set storyid = #{storyid,jdbcType=INTEGER},
+      otherid = #{otherid,jdbcType=INTEGER},
+      looknum = #{looknum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectNum" resultType="java.lang.Integer">
+    SELECT COUNT(*) num FROM look where storyid=#{storyid}
+  </select>
+</mapper>

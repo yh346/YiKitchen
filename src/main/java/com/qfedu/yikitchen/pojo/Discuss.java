@@ -1,17 +1,28 @@
 package com.qfedu.yikitchen.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 public class Discuss {
     private Integer id;
 
     private Integer storyid;
 
-    private Integer otheruserid;
+    private Integer otherid;
 
     private String talk;
 
     private Date talktime;
+
+    private  User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Integer getId() {
         return id;
@@ -29,12 +40,12 @@ public class Discuss {
         this.storyid = storyid;
     }
 
-    public Integer getOtheruserid() {
-        return otheruserid;
+    public Integer getOtherid() {
+        return otherid;
     }
 
-    public void setOtheruserid(Integer otheruserid) {
-        this.otheruserid = otheruserid;
+    public void setOtherid(Integer otherid) {
+        this.otherid = otherid;
     }
 
     public String getTalk() {

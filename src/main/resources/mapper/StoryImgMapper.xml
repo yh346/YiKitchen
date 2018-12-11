@@ -66,4 +66,13 @@
       storyid = #{storyid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <insert id="inserts">
+
+    insert into storyimg values
+
+    <foreach collection="list" separator="," item="storyimg">
+      (null,#{storyimg.url},#{storyimg.storyid})
+    </foreach>
+
+  </insert>
 </mapper>

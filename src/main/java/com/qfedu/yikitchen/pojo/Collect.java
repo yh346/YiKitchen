@@ -11,6 +11,16 @@ public class Collect {
 
     private Date collecttime;
 
+    private  Integer otherid;
+
+    public Integer getOtherid() {
+        return otherid;
+    }
+
+    public void setOtherid(Integer otherid) {
+        this.otherid = otherid;
+    }
+
     public Integer getId() {
         return id;
     }

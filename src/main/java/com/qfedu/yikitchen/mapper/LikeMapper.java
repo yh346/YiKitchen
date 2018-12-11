@@ -14,4 +14,10 @@ public interface LikeMapper {
     int updateByPrimaryKeySelective(Like record);
 
     int updateByPrimaryKey(Like record);
+
+    int likeOrNo(Like like);
+
+    int delete(Like like);
+
+    int LikeNum(Integer id);
 }

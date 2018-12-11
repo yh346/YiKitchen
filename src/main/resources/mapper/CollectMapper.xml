@@ -6,9 +6,10 @@
     <result column="storyid" property="storyid" jdbcType="INTEGER" />
     <result column="uid" property="uid" jdbcType="INTEGER" />
     <result column="collecttime" property="collecttime" jdbcType="TIMESTAMP" />
+    <result column="otherid" property="otherid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, storyid, uid, collecttime
+    id, storyid, uid, collecttime,otherid
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,9 +25,9 @@
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into collect (storyid, uid, collecttime
+    insert into collect (storyid, uid, collecttime,otherid
       )
-    values (#{storyid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{collecttime,jdbcType=TIMESTAMP}
+    values (#{storyid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{collecttime,jdbcType=TIMESTAMP}, #{otherid,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.qfedu.yikitchen.pojo.Collect" >
@@ -44,6 +45,9 @@
       <if test="collecttime != null" >
         collecttime,
       </if>
+      <if test="otherid != null" >
+        otherid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="storyid != null" >
@@ -54,6 +58,9 @@
       </if>
       <if test="collecttime != null" >
         #{collecttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="otherid != null" >
+        otherid,
       </if>
     </trim>
   </insert>
@@ -69,6 +76,9 @@
       <if test="collecttime != null" >
         collecttime = #{collecttime,jdbcType=TIMESTAMP},
       </if>
+      <if test="otherid != null" >
+        otherid,
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -76,7 +86,11 @@
     update collect
     set storyid = #{storyid,jdbcType=INTEGER},
       uid = #{uid,jdbcType=INTEGER},
-      collecttime = #{collecttime,jdbcType=TIMESTAMP}
+      collecttime = #{collecttime,jdbcType=TIMESTAMP},
+       ohterid = #{otherid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!--<select id="collectOrNo" resultType="java.lang.Integer">
+    select  count(*) from collect where storyid=#{storyid} and  otherid=#{otherid};
+  </select>-->
 </mapper>

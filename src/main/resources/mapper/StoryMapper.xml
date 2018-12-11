@@ -6,12 +6,31 @@
     <result column="uid" property="uid" jdbcType="INTEGER" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="content" property="content" jdbcType="VARCHAR" />
-    <result column="collectnum" property="collectnum" jdbcType="INTEGER" />
+    <result column="looknum" property="looknum" jdbcType="INTEGER" />
     <result column="playernum" property="playernum" jdbcType="INTEGER" />
     <result column="likenum" property="likenum" jdbcType="INTEGER" />
   </resultMap>
+  <resultMap id="StoryAndImg" type="com.qfedu.yikitchen.pojo.Story" extends="BaseResultMap">
+    <association property="user" javaType="com.qfedu.yikitchen.pojo.User">
+      <id column="id" property="id" jdbcType="INTEGER" />
+      <result column="username" property="username" jdbcType="VARCHAR" />
+      <result column="password" property="password" jdbcType="VARCHAR" />
+      <result column="sex" property="sex" jdbcType="INTEGER" />
+      <result column="address" property="address" jdbcType="VARCHAR" />
+      <result column="email" property="email" jdbcType="VARCHAR" />
+      <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+      <result column="type" property="type" jdbcType="INTEGER" />
+      <result column="headimg" property="headimg" jdbcType="INTEGER" />
+      <result column="collectnum" property="collectnum" jdbcType="INTEGER" />
+    </association>
+    <collection property="storyImgs" ofType="com.qfedu.yikitchen.pojo.StoryImg">
+      <id column="id" property="id" jdbcType="INTEGER" />
+      <result column="url" property="url" jdbcType="VARCHAR" />
+      <result column="storyid" property="storyid" jdbcType="INTEGER" />
+    </collection>
+  </resultMap>
   <sql id="Base_Column_List" >
-    id, uid, createtime, content, collectnum, playernum, likenum
+    id, uid, createtime, content, looknum, playernum, likenum
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -27,11 +46,11 @@
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into story (uid, createtime, content, 
-      collectnum, playernum, likenum
+    insert into story (uid, createtime, content,
+    looknum, playernum, likenum
       )
     values (#{uid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{content,jdbcType=VARCHAR}, 
-      #{collectnum,jdbcType=INTEGER}, #{playernum,jdbcType=INTEGER}, #{likenum,jdbcType=INTEGER}
+      #{looknum,jdbcType=INTEGER}, #{playernum,jdbcType=INTEGER}, #{likenum,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.qfedu.yikitchen.pojo.Story" >
@@ -49,8 +68,8 @@
       <if test="content != null" >
         content,
       </if>
-      <if test="collectnum != null" >
-        collectnum,
+      <if test="looknum != null" >
+        looknum,
       </if>
       <if test="playernum != null" >
         playernum,
@@ -69,8 +88,8 @@
       <if test="content != null" >
         #{content,jdbcType=VARCHAR},
       </if>
-      <if test="collectnum != null" >
-        #{collectnum,jdbcType=INTEGER},
+      <if test="looknum != null" >
+        #{looknum,jdbcType=INTEGER},
       </if>
       <if test="playernum != null" >
         #{playernum,jdbcType=INTEGER},
@@ -92,8 +111,8 @@
       <if test="content != null" >
         content = #{content,jdbcType=VARCHAR},
       </if>
-      <if test="collectnum != null" >
-        collectnum = #{collectnum,jdbcType=INTEGER},
+      <if test="looknum != null" >
+        looknum = #{looknum,jdbcType=INTEGER},
       </if>
       <if test="playernum != null" >
         playernum = #{playernum,jdbcType=INTEGER},
@@ -109,9 +128,36 @@
     set uid = #{uid,jdbcType=INTEGER},
       createtime = #{createtime,jdbcType=TIMESTAMP},
       content = #{content,jdbcType=VARCHAR},
-      collectnum = #{collectnum,jdbcType=INTEGER},
+      looknum = #{looknum,jdbcType=INTEGER},
       playernum = #{playernum,jdbcType=INTEGER},
       likenum = #{likenum,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectFocus" resultMap="StoryAndImg">
+  SELECT
+  s.*,u.headimg,u.username,i.url from story s
+  inner JOIN focus f on s.uid = f.otherid
+  inner JOIN `user` u on f.userid = u.id
+  left JOIN storyimg i on s.id = i.storyid
+  WHERE u.id = #{id}
+  </select>
+
+  <select id="selectAllStory" resultMap="StoryAndImg">
+  SELECT
+  s.*,u.headimg,u.username,i.url from story s
+  inner JOIN `user` u  on s.uid = u.id
+  left JOIN storyimg i  on s.id = i.storyid
+  </select>
+  <select id="selectStoryByTime" resultMap="StoryAndImg">
+ SELECT
+s.*,u.headimg,u.username,i.url
+from story s
+
+       inner JOIN `user` u
+       on s.uid = u.id
+       left JOIN storyimg i
+       on s.id = i.storyid
+ORDER BY s.createtime DESC
+  </select>
+
 </mapper>
