@@ -2,6 +2,8 @@ package com.qfedu.yikitchen.mapper;
 
 import com.qfedu.yikitchen.pojo.Orders;
 
+import java.util.List;
+
 public interface OrdersMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -9,7 +11,7 @@ public interface OrdersMapper {
 
     int insertSelective(Orders record);
 
-    Orders selectByPrimaryKey(Integer id);
+    List<Orders> selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(Orders record);
 

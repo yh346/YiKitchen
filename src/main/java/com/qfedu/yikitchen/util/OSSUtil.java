@@ -1,10 +1,9 @@
 package com.qfedu.yikitchen.util;
 
-//import com.aliyun.oss.OSSClient;
-//import com.aliyun.oss.model.*;
-
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.*;
+import org.springframework.stereotype.Component;
+
 
 import java.io.ByteArrayInputStream;
 import java.util.Calendar;
@@ -15,15 +14,18 @@ import java.util.List;
  *@Date Created in 2018/7/27 11:45
  * 基于阿里云的oss      对象存储
  */
+@Component
 public class OSSUtil {
     private String endpoint = "oss-cn-beijing.aliyuncs.com";
-    private String accessKeyId = "LTAIhTvqTSmlmjeQ";
-    private String accessKeySecret = "X7X9w0Ck5GEIWgP9tl0Q6sgmFjQuMv";
-    private String bucketName = "qfjava1805";
-    /*private String endpoint;
+    private String accessKeyId = "LTAIVx1oizHaw5Iz";
+    private String accessKeySecret = "X1SlkDu0eYShwW41hLw20y61xVDgbC";
+    private String bucketName = "nwh1995";
+ /*  private String endpoint;
     private String accessKeyId;
     private String accessKeySecret;
     private String bucketName;*/
+
+     public  OSSUtil(){}
     public OSSUtil(String endpoint, String accessKeyId, String accessKeySecret, String bucketName) {
         this.endpoint = endpoint;
         this.accessKeyId = accessKeyId;

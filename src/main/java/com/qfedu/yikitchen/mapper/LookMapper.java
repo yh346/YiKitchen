@@ -2,6 +2,8 @@ package com.qfedu.yikitchen.mapper;
 
 import com.qfedu.yikitchen.pojo.Look;
 
+import java.util.List;
+
 public interface LookMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -15,5 +17,5 @@ public interface LookMapper {
 
     int updateByPrimaryKey(Look record);
 
-    int selectNum(Integer id);
+    List<Look> LooksNum();
 }

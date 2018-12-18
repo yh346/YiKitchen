@@ -18,21 +18,21 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from like
+    delete from `like`
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.qfedu.yikitchen.pojo.Like" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into like (userid,otherid, likenum,storyid)
-    values (#{userid,jdbcType=INTEGER},#{otherid,jdbcType=INTEGER}, #{likenum,jdbcType=INTEGER},#{storyid,jdbcType=INTEGER},)
+    insert into `like` (userid,otherid, likenum,storyid)
+    values (#{userid,jdbcType=INTEGER},#{otherid,jdbcType=INTEGER}, #{likenum,jdbcType=INTEGER},#{storyid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.qfedu.yikitchen.pojo.Like" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into like
+    insert into `like`
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userid != null" >
         userid,
@@ -88,14 +88,14 @@
        storyid = #{storyid,jdbcType=INTEGER},
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="likeOrNo" resultType="java.lang.Integer">
-    select  count(*) from `like` where storyid=#{storyid} and  otherid=#{otherid};
+  <select id="likeOrNo" resultType="com.qfedu.yikitchen.pojo.Like">
+    select  * from `like` where storyid=#{storyid} and  otherid=#{otherid};
   </select>
   <delete id="delete" parameterType="java.lang.Integer" >
     delete from `like`
     where storyid = #{storyid,jdbcType=INTEGER} and otherid=#{otherid}
   </delete>
-  <select id="LikeNum" resultType="java.lang.Integer">
-    select count(*) from `like` where storyid=#{storyid};
+  <select id="LikeNum" resultType="com.qfedu.yikitchen.pojo.Like">
+    select count(storyid) as  likenum,storyid from `like` group  by  storyid;
   </select>
 </mapper>

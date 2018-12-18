@@ -2,6 +2,8 @@ package com.qfedu.yikitchen.mapper;
 
 import com.qfedu.yikitchen.pojo.Like;
 
+import java.util.List;
+
 public interface LikeMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -15,9 +17,9 @@ public interface LikeMapper {
 
     int updateByPrimaryKey(Like record);
 
-    int likeOrNo(Like like);
+    Like likeOrNo(Like like);
 
     int delete(Like like);
 
-    int LikeNum(Integer id);
+    List<Like> LikeNum();
 }

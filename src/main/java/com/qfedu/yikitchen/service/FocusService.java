@@ -5,6 +5,5 @@ import com.qfedu.yikitchen.vo.ResultBean;
 
 public interface FocusService {
     ResultBean FocusOrNo(Focus focus);
-    ResultBean addFocus(Focus focus);
-    ResultBean deleteFocus(Focus focus);
+
 }

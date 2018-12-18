@@ -3,11 +3,11 @@ package com.qfedu.yikitchen.pojo;
 public class Step {
     private Integer id;
 
-    private Integer dishid;
+    private Integer greensid;
 
-    private String step;
+    private String stepname;
 
-    private String imgurl;
+    private String stepurl;
 
     public Integer getId() {
         return id;
@@ -17,27 +17,27 @@ public class Step {
         this.id = id;
     }
 
-    public Integer getDishid() {
-        return dishid;
+    public Integer getGreensid() {
+        return greensid;
     }
 
-    public void setDishid(Integer dishid) {
-        this.dishid = dishid;
+    public void setGreensid(Integer greensid) {
+        this.greensid = greensid;
     }
 
-    public String getStep() {
-        return step;
+    public String getStepname() {
+        return stepname;
     }
 
-    public void setStep(String step) {
-        this.step = step == null ? null : step.trim();
+    public void setStepname(String stepname) {
+        this.stepname = stepname == null ? null : stepname.trim();
     }
 
-    public String getImgurl() {
-        return imgurl;
+    public String getStepurl() {
+        return stepurl;
     }
 
-    public void setImgurl(String imgurl) {
-        this.imgurl = imgurl == null ? null : imgurl.trim();
+    public void setStepurl(String stepurl) {
+        this.stepurl = stepurl == null ? null : stepurl.trim();
     }
 }

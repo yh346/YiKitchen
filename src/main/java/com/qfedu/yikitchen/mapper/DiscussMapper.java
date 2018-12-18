@@ -17,5 +17,5 @@ public interface DiscussMapper {
 
     int updateByPrimaryKey(Discuss record);
 
-    List<Discuss> selectDiscuss(Integer id);
+    List<Discuss> selectDiscuss();
 }

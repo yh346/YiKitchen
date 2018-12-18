@@ -90,4 +90,40 @@
       productdesc = #{productdesc,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <resultMap id="Products" type="com.qfedu.yikitchen.pojo.Product" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="pname" property="pname" jdbcType="VARCHAR" />
+    <result column="typeid" property="typeid" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="INTEGER" />
+    <result column="productdesc" property="productdesc" jdbcType="VARCHAR" />
+
+    <collection property="pitcures" ofType="com.qfedu.yikitchen.pojo.Pitcure">
+      <id  column="ptid" property="id"></id>
+
+      <result column="url" property="url"></result>
+
+      <result column="productnum" property="productnum"></result>
+
+    </collection>
+
+  </resultMap>
+
+  <select id="select" resultMap="Products" parameterType="java.lang.Integer" >
+   SELECT p.id, p.pname,p.typeid,p.price,p.productdesc,pt.url ,pt.productnum,t.typename FROM product p LEFT JOIN type t on p.typeid =t.id LEFT JOIN pitcure pt on p.id =pt.productnum
+   where p.typeid = #{id}
+  </select>
+
+  <select id="selectAll" resultMap="Products" parameterType="java.lang.Integer" >
+   SELECT p.id, p.pname,p.typeid,p.price,p.productdesc,pt.url ,pt.productnum,t.typename FROM product p LEFT JOIN type t on p.typeid =t.id LEFT JOIN pitcure pt on p.id =pt.productnum
+  </select>
+
+
+
+  <select id="selectById"  resultMap="Products" parameterType="java.lang.Integer" >
+   SELECT p.id, p.pname,p.price,p.productdesc,pt.url,pt.productnum ,pt.id FROM product p LEFT JOIN  pitcure pt on p.id =pt.productnum
+  where p.id = #{id,jdbcType=INTEGER}
+</select>
+
+
 </mapper>

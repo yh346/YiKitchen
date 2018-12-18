@@ -20,8 +20,8 @@ public class LookServiceImpl implements LookService {
     }
 
     @Override
-    public ResultBean selectNum(Integer id) {
-        ResultBean resultBean =ResultUtil.execOp(lookMapper.selectNum(id),"查找成功");
+    public ResultBean selectNum() {
+        ResultBean resultBean =ResultUtil.setOK("查找成功",lookMapper.LooksNum());
         return resultBean;
     }
 }

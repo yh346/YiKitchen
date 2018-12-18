@@ -70,8 +70,8 @@
 
     insert into storyimg values
 
-    <foreach collection="list" separator="," item="storyimg">
-      (null,#{storyimg.url},#{storyimg.storyid})
+    <foreach collection="list" separator="," item="img">
+      (null,#{img.url},#{img.storyid})
     </foreach>
 
   </insert>

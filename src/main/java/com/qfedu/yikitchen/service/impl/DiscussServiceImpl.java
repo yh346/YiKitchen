@@ -17,16 +17,16 @@ public class DiscussServiceImpl implements DiscussService {
 
 
     @Override
-    public ResultBean selectDiscuss(Integer id) {
-      List<Discuss> discusses = discussMapper.selectDiscuss(id);
+    public ResultBean selectDiscuss() {
+      List<Discuss> discusses = discussMapper.selectDiscuss();
         System.out.println(discusses);
-        ResultBean resultBean = ResultUtil.setOK("查询成功",discussMapper.selectDiscuss(id));
+        ResultBean resultBean = ResultUtil.setOK("查询成功",discussMapper.selectDiscuss());
         return resultBean;
     }
 
     @Override
     public ResultBean addDiscuss(Discuss discuss) {
-        ResultBean resultBean = ResultUtil.execOp(discussMapper.insertSelective(discuss),"评论成功");
+        ResultBean resultBean = ResultUtil.execOp(discussMapper.insert(discuss),"评论成功");
         return resultBean;
     }
 }

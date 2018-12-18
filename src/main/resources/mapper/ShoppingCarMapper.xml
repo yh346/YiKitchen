@@ -79,4 +79,33 @@
       userid = #{userid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <resultMap id="shopcar" type="com.qfedu.yikitchen.pojo.ShoppingCar" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="productnum" property="productnum" jdbcType="INTEGER" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+
+    <collection property="products" ofType="com.qfedu.yikitchen.pojo.Product">
+      <id column="pid" property="id" ></id>
+      <result column="pname" property="pname"></result>
+      <result column="typeid" property="typeid"></result>
+      <result column="price" property="price"></result>
+      <result column="productdesc" property="productdesc"></result>
+      <result column="typeName" property="typeName"></result>
+      <result column="url" property="url"></result>
+    </collection>
+  </resultMap>
+
+
+  <select id="selectCarById" resultMap="shopcar">
+    select s.count,p.pname,p.price,p.productdesc,pr.url ,u.id from shoppingcar s inner join product p on s.productnum = p.id left join
+    pitcure pr on s.productnum = pr.productnum left join user u on s.userid = u.id where s.userid = #{id}
+
+
+  </select>
+
+
+
+
 </mapper>

@@ -49,7 +49,7 @@
     insert into story (uid, createtime, content,
     looknum, playernum, likenum
       )
-    values (#{uid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{content,jdbcType=VARCHAR}, 
+    values (#{uid,jdbcType=INTEGER},now(), #{content,jdbcType=VARCHAR},
       #{looknum,jdbcType=INTEGER}, #{playernum,jdbcType=INTEGER}, #{likenum,jdbcType=INTEGER}
       )
   </insert>

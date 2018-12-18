@@ -19,7 +19,7 @@ public class User {
 
     private Integer type;
 
-    private String headimg;
+    private Integer headimg;
 
     private Integer collectnum;
 
@@ -87,11 +87,11 @@ public class User {
         this.type = type;
     }
 
-    public String getHeadimg() {
+    public Integer getHeadimg() {
         return headimg;
     }
 
-    public void setHeadimg(String headimg) {
+    public void setHeadimg(Integer headimg) {
         this.headimg = headimg;
     }
 

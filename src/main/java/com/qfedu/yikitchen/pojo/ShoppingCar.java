@@ -1,5 +1,7 @@
 package com.qfedu.yikitchen.pojo;
 
+import java.util.List;
+
 public class ShoppingCar {
     private Integer id;
 
@@ -8,6 +10,16 @@ public class ShoppingCar {
     private Integer count;
 
     private Integer userid;
+
+    private List<Product> products;
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 
     public Integer getId() {
         return id;

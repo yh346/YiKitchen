@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qfedu.mapper.LookMapper" >
+<mapper namespace="com.qfedu.yikitchen.mapper.LookMapper" >
   <resultMap id="BaseResultMap" type="com.qfedu.yikitchen.pojo.Look" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="storyid" property="storyid" jdbcType="INTEGER" />
@@ -79,7 +79,8 @@
       looknum = #{looknum,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectNum" resultType="java.lang.Integer">
-    SELECT COUNT(*) num FROM look where storyid=#{storyid}
+
+  <select id="LooksNum" resultType="com.qfedu.yikitchen.pojo.Look">
+   select count(storyid) as  looknum,storyid from look group  by  storyid;
   </select>
 </mapper>

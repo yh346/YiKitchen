@@ -24,17 +24,20 @@ public class StoryController {
 
     @ApiOperation(value = "获取关注对象的故事",httpMethod = "GET",notes = "获取所有关注故事")
     @RequestMapping("showFocus")
-    public ResultBean showFocus(Integer id){
+    public ResultBean showFocus(Integer id,HttpServletResponse response){
+        response.addHeader("Access-Control-Allow-Origin", "*");
         return storyService.selectFocus(id);
     }
     @ApiOperation(value = "获取所有的故事",httpMethod = "GET",notes = "获取所有故事")
     @RequestMapping("showAllStory")
-    public ResultBean showAllStory(){
+    public ResultBean showAllStory(HttpServletResponse response){
+        response.addHeader("Access-Control-Allow-Origin", "*");
         return storyService.selectAllStory();
     }
     @ApiOperation(value = "获取最新的故事",httpMethod = "GET",notes = "获取最新故事")
     @RequestMapping("showByTime")
-    public ResultBean showByTime(){
+    public ResultBean showByTime(HttpServletResponse response){
+        response.addHeader("Access-Control-Allow-Origin", "*");
         return storyService.ByTime();
     }
     @ApiOperation(value = "发表故事",httpMethod = "POST",notes = "发表最新故事")
@@ -51,23 +54,28 @@ public class StoryController {
         response.addHeader("Access-Control-Allow-Origin", "*");
         // 解决ie浏览器下的Bug
 
-        String fileName = UUID.randomUUID().toString() + multipartFile.getOriginalFilename();
-        File file = new File("D:\\xiaomi\\" + fileName);
+    String fileName = UUID.randomUUID().toString() + multipartFile.getOriginalFilename();
+    File file = new File("D:\\xiaomi\\" + fileName);
+    multipartFile.transferTo(file);
 
-        multipartFile.transferTo(file);
+        //String fileName = UUID.randomUUID().toString() + multipartFile.getOriginalFilename();
+
+
+
        ResultBean resultBean= ResultUtil.setOK("上传成功",null);
+
 
         // 将文件的名字或者文件的路径在返回给前端，前端获取到之后保存到隐藏表单域中，和其他的文本第二次提交的时候一起保存到数据库
         return resultBean;
 
     }
-    @ApiOperation(value = "发表故",httpMethod = "GET",notes = "发表新故事")
+    /*@ApiOperation(value = "发表故事",httpMethod = "GET",notes = "发表新故事")
     @RequestMapping("addStorys")
     public ResultBean addStorys(String content, String[] filename, Integer userid, HttpServletResponse response) throws IOException {
         response.addHeader("Access-Control-Allow-Origin", "*");
         return storyService.newStorys(content,filename,userid);
 
-    }
+    }*/
 
 
 

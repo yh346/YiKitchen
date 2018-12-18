@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qfedu.yikitchen.mapper.GreensMapper" >
+  <resultMap id="BaseResultMap" type="com.qfedu.yikitchen.pojo.Greens" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="grename" property="grename" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="colletnum" property="colletnum" jdbcType="INTEGER" />
+    <result column="playernum" property="playernum" jdbcType="INTEGER" />
+    <result column="greurl" property="greurl" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="difflevel" property="difflevel" jdbcType="VARCHAR" />
+    <result column="story" property="story" jdbcType="LONGVARCHAR" />
+    <result column="dish" property="dish" jdbcType="LONGVARCHAR" />
+    <result column="step" property="step" jdbcType="LONGVARCHAR" />
+    <result column="gretypeid" property="gretypeid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, grename, userid, colletnum, playernum, greurl, time, difflevel
+    story, dish, step,gretypeid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from greens
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from greens
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.yikitchen.pojo.Greens" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into greens (grename, userid, colletnum, 
+      playernum, greurl, time, 
+      difflevel, story, dish, 
+      step,gretypeid)
+    values (#{grename,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, #{colletnum,jdbcType=INTEGER}, 
+      #{playernum,jdbcType=INTEGER}, #{greurl,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, 
+      #{difflevel,jdbcType=VARCHAR}, #{story,jdbcType=LONGVARCHAR}, #{dish,jdbcType=LONGVARCHAR}, 
+      #{step,jdbcType=LONGVARCHAR}, #{gretypeid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.yikitchen.pojo.Greens" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into greens
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="grename != null" >
+        grename,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="colletnum != null" >
+        colletnum,
+      </if>
+      <if test="playernum != null" >
+        playernum,
+      </if>
+      <if test="greurl != null" >
+        greurl,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="difflevel != null" >
+        difflevel,
+      </if>
+      <if test="story != null" >
+        story,
+      </if>
+      <if test="dish != null" >
+        dish,
+      </if>
+      <if test="step != null" >
+        step,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="grename != null" >
+        #{grename,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="colletnum != null" >
+        #{colletnum,jdbcType=INTEGER},
+      </if>
+      <if test="playernum != null" >
+        #{playernum,jdbcType=INTEGER},
+      </if>
+      <if test="greurl != null" >
+        #{greurl,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="difflevel != null" >
+        #{difflevel,jdbcType=VARCHAR},
+      </if>
+      <if test="story != null" >
+        #{story,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dish != null" >
+        #{dish,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="step != null" >
+        #{step,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.yikitchen.pojo.Greens" >
+    update greens
+    <set >
+      <if test="grename != null" >
+        grename = #{grename,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="colletnum != null" >
+        colletnum = #{colletnum,jdbcType=INTEGER},
+      </if>
+      <if test="playernum != null" >
+        playernum = #{playernum,jdbcType=INTEGER},
+      </if>
+      <if test="greurl != null" >
+        greurl = #{greurl,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="difflevel != null" >
+        difflevel = #{difflevel,jdbcType=VARCHAR},
+      </if>
+      <if test="story != null" >
+        story = #{story,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="dish != null" >
+        dish = #{dish,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="step != null" >
+        step = #{step,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="gretypeid != null" >
+        playernum = #{gretypeid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.qfedu.yikitchen.pojo.Greens" >
+    update greens
+    set grename = #{grename,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=INTEGER},
+      colletnum = #{colletnum,jdbcType=INTEGER},
+      playernum = #{playernum,jdbcType=INTEGER},
+      greurl = #{greurl,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
+      difflevel = #{difflevel,jdbcType=VARCHAR},
+      story = #{story,jdbcType=LONGVARCHAR},
+      dish = #{dish,jdbcType=LONGVARCHAR},
+      step = #{step,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.yikitchen.pojo.Greens" >
+    update greens
+    set grename = #{grename,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=INTEGER},
+      colletnum = #{colletnum,jdbcType=INTEGER},
+      playernum = #{playernum,jdbcType=INTEGER},
+      greurl = #{greurl,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
+      difflevel = #{difflevel,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAll" resultType="Greens">
+   select greens.id as id, grename,username,colletnum,playernum,greurl from greens left join user on greens.userid = user.id
+  </select>
+
+  <select id="selectById" resultType="Greens">
+    select grename,username,colletnum,playernum,greurl from greens left join user on greens.userid = user.id where greens.id=#{id}
+
+  </select>
+
+  <select id="selectByGrename" resultType="Greens" >
+    select greens.id as id, grename,username,colletnum,playernum,greurl
+    from greens left join user on greens.userid = user.id
+    where greens.grename like  "%"#{grename}"%"
+  </select>
+
+  <!--<insert id="addGreen" parameterType="com.qfedu.yikitchen.pojo.Greens">-->
+    <!--insert into greens(userid,grename,greurl,time,difflevel) values (#{userid},#{grename},#{greurl},now(),#{difflevel})-->
+  <!--</insert>-->
+  <update id="updateplayernum" parameterType="com.qfedu.yikitchen.pojo.Greens">
+    update greens
+    set playernum = #{playernum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getGreurl" resultType="Map">
+     select greurl from greens   ORDER BY colletnum desc limit 0 ,3
+  </select>
+
+  <select id="selectGre" resultType="Greens">
+
+    select
+    <include refid="Base_Column_List" />
+     from greens ORDER BY colletnum desc limit 0 ,10
+
+  </select>
+
+  <select id="selectByTypename" resultType="Map">
+
+    select greens.id as id, grename,colletnum,playernum,greurl from gretype
+    LEFT JOIN greens on greens.gretypeid = gretype.id where typename like "%"#{typename}"%"
+  </select>
+</mapper>

@@ -1,15 +1,18 @@
 package com.qfedu.yikitchen.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.qfedu.yikitchen.annotation.UserLoginToken;
 import com.qfedu.yikitchen.pojo.User;
 import com.qfedu.yikitchen.service.TokenService;
 import com.qfedu.yikitchen.service.UserService;
+import com.qfedu.yikitchen.vo.ResponseVoo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
+@Api(description = "用户模块接口")
 @RestController
 public class UserController {
 
@@ -19,12 +22,11 @@ public class UserController {
     @Autowired
     TokenService tokenService;
 
-    @RequestMapping ("/login")
+    @ApiOperation(value="用户登录", notes="")
+    //@ApiImplicitParam(name = "playernum", value = "观看量加一后的数值")
+    @RequestMapping (value = "/login",method = RequestMethod.POST)
     public Object login(User user, HttpServletResponse response) {
-
        // response.addHeader("Access-Control-Allow-Origin", "*");
-
-
         System.out.println(user.getUsername());
         JSONObject jsonObject = new JSONObject();
         User userForBase = userService.findUserByUsername(user);
@@ -48,17 +50,25 @@ public class UserController {
 
     }
 
+    @ApiOperation(value="用户注册", notes="")
+    //@ApiImplicitParam(name = "playernum", value = "观看量加一后的数值")
+   @RequestMapping(value = "register",method = RequestMethod.POST)
+    public ResponseVoo<User> register(String username,String password) {
+/*       User user1=new User();
+     user1.setUsername(username);
+     user1.setPassword(password);*/
 
-    @UserLoginToken
-    @RequestMapping("/getMessage")
-    public String getMessage(){
-        return "你已通过验证";
-    }
+        ResponseVoo vo = userService.register(username,password);
+        System.out.println(vo.getData());
+        if(vo.getData().isEmpty()) {
+            vo.setCode(100);
+            vo.setMsg("注册失败");
+        } else {
+            vo.setCode(200);
+            vo.setMsg("注册成功");
+        }
 
+        return vo;
+   }
 
-    //@UserLoginToken
-    @GetMapping("/getindex")
-    public String getindex(){
-        return "恭喜你成功";
-    }
 }

@@ -11,7 +11,7 @@ public class Orders {
 
     private Date createtime;
 
-    private String postadd;
+    private Integer postadd;
 
     private Integer status;
 
@@ -53,12 +53,12 @@ public class Orders {
         this.createtime = createtime;
     }
 
-    public String getPostadd() {
+    public Integer getPostadd() {
         return postadd;
     }
 
-    public void setPostadd(String postadd) {
-        this.postadd = postadd == null ? null : postadd.trim();
+    public void setPostadd(Integer postadd) {
+        this.postadd = postadd;
     }
 
     public Integer getStatus() {

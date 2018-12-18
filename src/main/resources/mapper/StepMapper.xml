@@ -3,15 +3,15 @@
 <mapper namespace="com.qfedu.yikitchen.mapper.StepMapper" >
   <resultMap id="BaseResultMap" type="com.qfedu.yikitchen.pojo.Step" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="dishid" property="dishid" jdbcType="INTEGER" />
-    <result column="step" property="step" jdbcType="VARCHAR" />
-    <result column="imgurl" property="imgurl" jdbcType="VARCHAR" />
+    <result column="greensid" property="greensid" jdbcType="INTEGER" />
+    <result column="stepname" property="stepname" jdbcType="VARCHAR" />
+    <result column="stepurl" property="stepurl" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, dishid, step, imgurl
+    id, greensid, stepname, stepurl
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from step
     where id = #{id,jdbcType=INTEGER}
@@ -24,10 +24,10 @@
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into step (dishid, step, imgurl
-      )
-    values (#{dishid,jdbcType=INTEGER}, #{step,jdbcType=VARCHAR}, #{imgurl,jdbcType=VARCHAR}
-      )
+    insert into step (greensid, stepname, stepurl
+    )
+    values (#{greensid,jdbcType=INTEGER}, #{stepname,jdbcType=VARCHAR}, #{stepurl,jdbcType=VARCHAR}
+    )
   </insert>
   <insert id="insertSelective" parameterType="com.qfedu.yikitchen.pojo.Step" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -35,48 +35,60 @@
     </selectKey>
     insert into step
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="dishid != null" >
-        dishid,
+      <if test="greensid != null" >
+        greensid,
       </if>
-      <if test="step != null" >
-        step,
+      <if test="stepname != null" >
+        stepname,
       </if>
-      <if test="imgurl != null" >
-        imgurl,
+      <if test="stepurl != null" >
+        stepurl,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="dishid != null" >
-        #{dishid,jdbcType=INTEGER},
+      <if test="greensid != null" >
+        #{greensid,jdbcType=INTEGER},
       </if>
-      <if test="step != null" >
-        #{step,jdbcType=VARCHAR},
+      <if test="stepname != null" >
+        #{stepname,jdbcType=VARCHAR},
       </if>
-      <if test="imgurl != null" >
-        #{imgurl,jdbcType=VARCHAR},
+      <if test="stepurl != null" >
+        #{stepurl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.yikitchen.pojo.Step" >
     update step
     <set >
-      <if test="dishid != null" >
-        dishid = #{dishid,jdbcType=INTEGER},
+      <if test="greensid != null" >
+        greensid = #{greensid,jdbcType=INTEGER},
       </if>
-      <if test="step != null" >
-        step = #{step,jdbcType=VARCHAR},
+      <if test="stepname != null" >
+        stepname = #{stepname,jdbcType=VARCHAR},
       </if>
-      <if test="imgurl != null" >
-        imgurl = #{imgurl,jdbcType=VARCHAR},
+      <if test="stepurl != null" >
+        stepurl = #{stepurl,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.qfedu.yikitchen.pojo.Step" >
     update step
-    set dishid = #{dishid,jdbcType=INTEGER},
-      step = #{step,jdbcType=VARCHAR},
-      imgurl = #{imgurl,jdbcType=VARCHAR}
+    set greensid = #{greensid,jdbcType=INTEGER},
+      stepname = #{stepname,jdbcType=VARCHAR},
+      stepurl = #{stepurl,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getStepByGreensid" resultType="Step">
+
+    select stepname,stepurl from step where greensid = #{id}
+  </select>
+
+  <insert id="insertStep">
+    insert into step values
+    <foreach collection="steps" separator="," item="step">
+      (#{step.greensid},#{step.stepname},#{step.stepurl})
+    </foreach>
+  </insert>
 </mapper>

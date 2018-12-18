@@ -2,15 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.qfedu.yikitchen.mapper.DishMapper" >
   <resultMap id="BaseResultMap" type="com.qfedu.yikitchen.pojo.Dish" >
-    <result column="id" property="id" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="greensid" property="greensid" jdbcType="INTEGER" />
     <result column="dishname" property="dishname" jdbcType="VARCHAR" />
+    <result column="dishweight" property="dishweight" jdbcType="VARCHAR" />
   </resultMap>
+  <sql id="Base_Column_List" >
+    id, greensid, dishname, dishweight
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from dish
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dish
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="com.qfedu.yikitchen.pojo.Dish" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into dish (dishname)
-    values (#{dishname,jdbcType=VARCHAR})
+    insert into dish (greensid, dishname, dishweight
+    )
+    values (#{greensid,jdbcType=INTEGER}, #{dishname,jdbcType=VARCHAR}, #{dishweight,jdbcType=VARCHAR}
+    )
   </insert>
   <insert id="insertSelective" parameterType="com.qfedu.yikitchen.pojo.Dish" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -18,14 +35,59 @@
     </selectKey>
     insert into dish
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="greensid != null" >
+        greensid,
+      </if>
       <if test="dishname != null" >
         dishname,
       </if>
+      <if test="dishweight != null" >
+        dishweight,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="greensid != null" >
+        #{greensid,jdbcType=INTEGER},
+      </if>
       <if test="dishname != null" >
         #{dishname,jdbcType=VARCHAR},
       </if>
+      <if test="dishweight != null" >
+        #{dishweight,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.yikitchen.pojo.Dish" >
+    update dish
+    <set >
+      <if test="greensid != null" >
+        greensid = #{greensid,jdbcType=INTEGER},
+      </if>
+      <if test="dishname != null" >
+        dishname = #{dishname,jdbcType=VARCHAR},
+      </if>
+      <if test="dishweight != null" >
+        dishweight = #{dishweight,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.yikitchen.pojo.Dish" >
+    update dish
+    set greensid = #{greensid,jdbcType=INTEGER},
+      dishname = #{dishname,jdbcType=VARCHAR},
+      dishweight = #{dishweight,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="getDishByGreensid" resultType="Dish">
+    select dishname,dishweight from dish where greensid = #{id}
+  </select>
+
+<insert id="insertDish">
+  insert into dish values
+  <foreach collection="dishes" separator="," item="dish">
+  (#{dish.greensid},#{dish.dishname},#{dish.dishweight})
+  </foreach>
+</insert>
 </mapper>

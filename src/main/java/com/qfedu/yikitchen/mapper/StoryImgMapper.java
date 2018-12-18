@@ -7,7 +7,7 @@ import java.util.List;
 public interface StoryImgMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(StoryImg record);
+    int insert(StoryImg storyImg);
 
     int insertSelective(StoryImg record);
 

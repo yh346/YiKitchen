@@ -4,6 +4,6 @@ import com.qfedu.yikitchen.pojo.Discuss;
 import com.qfedu.yikitchen.vo.ResultBean;
 
 public interface DiscussService {
-    ResultBean selectDiscuss(Integer id);
+    ResultBean selectDiscuss();
     ResultBean addDiscuss(Discuss discuss);
 }

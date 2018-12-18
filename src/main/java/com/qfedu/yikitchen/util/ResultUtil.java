@@ -46,9 +46,9 @@ public class ResultUtil {
     //非查询操作
     public static ResultBean execOp(int count,String msg){
         if(count>0){
-            return setOK(msg+"成功",null);
+            return setOK(msg+"",null);
         }else{
-            return setError(SystemCon.RERROR1,msg+"失败",null);
+            return setError(SystemCon.RERROR1,msg+"",null);
         }
     }
 }

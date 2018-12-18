@@ -2,6 +2,9 @@ package com.qfedu.yikitchen.mapper;
 
 import com.qfedu.yikitchen.pojo.ShoppingCar;
 
+import javax.validation.constraints.Max;
+import java.util.List;
+
 public interface ShoppingCarMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +17,6 @@ public interface ShoppingCarMapper {
     int updateByPrimaryKeySelective(ShoppingCar record);
 
     int updateByPrimaryKey(ShoppingCar record);
+
+    List<ShoppingCar> selectCarById(Integer id);
 }

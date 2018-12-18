@@ -61,7 +61,7 @@
     insert into discuss (storyid, otherid, talk,
       talktime)
     values (#{storyid,jdbcType=INTEGER}, #{otherid,jdbcType=INTEGER}, #{talk,jdbcType=VARCHAR},
-      #{talktime,jdbcType=TIMESTAMP})
+      now())
   </insert>
   <insert id="insertSelective" parameterType="com.qfedu.yikitchen.pojo.Discuss" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -127,7 +127,7 @@
 
   select
 d.*,u.headimg,u.username
-FROM discuss d LEFT JOIN `user` u on u.id=d.otherid WHERE storyid=#{storyid}
+FROM discuss d LEFT JOIN `user` u on u.id=d.otherid
 
   </select>
 
